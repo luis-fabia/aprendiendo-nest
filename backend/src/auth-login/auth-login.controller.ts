@@ -11,7 +11,7 @@ export class AuthLoginController {
     @Post()
     async ValidateUser(@Body() body: AuthLoginDto) {
         const datos = this.authLoginService.ValidationDatosAuth(body)
-
-    }
+        return datos
+    }   
 
 }

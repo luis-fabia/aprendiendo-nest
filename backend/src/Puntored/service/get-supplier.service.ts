@@ -13,7 +13,12 @@ export class GetSupplierService {
 
         const token =  await this.authService.getValidToken()
 
+        console.log(`Token ${token}`)
+
         const PUNTORED_AUTH_URL = this.configService.get('PUNTORED_AUTH_URL')
+
+        console.log(`AUTH_URL ${PUNTORED_AUTH_URL}`)
+
 
         try {
 
@@ -21,6 +26,8 @@ export class GetSupplierService {
                 method: 'GET',
                 headers: { 'authorization': `${token}` }
             })
+
+            console.log(`Peticion ${peticion}`)
 
             const datos = await peticion.json()
 

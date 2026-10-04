@@ -1,7 +1,10 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import {TransactionsService} from '../service/transactions.service.js'
+import { JwtAuthGuard } from '../../auth-login/jwt-auth.guard.js'
+
 
 @Controller('transactions')
+@UseGuards(JwtAuthGuard)
 export class TransactionsController {
 
     constructor(private transactionsService: TransactionsService) {}

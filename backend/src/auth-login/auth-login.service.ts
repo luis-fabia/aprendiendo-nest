@@ -32,7 +32,13 @@ export class AuthLoginService {
             username: datos.username
         }
 
-        return { accesToken: this.jwtService.sign(payload) }
+        return { 
+            accesToken: this.jwtService.sign(payload, {
+            expiresIn: '3m'
+            }) 
+            
+    
+        }
 
     }
 

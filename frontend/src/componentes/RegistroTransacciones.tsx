@@ -1,13 +1,17 @@
-import { useState } from "react";
+import {  useState } from "react";
+import { useAuthFetch } from '../hooks/useAuthFetch.ts'
+
 
 export function RegistroTransacciones() {
 
     const [allTransaccion, setAllTransaccion] = useState([]);
     const [mostrar, setMostrar] = useState(false);
+    const {Authfecth} = useAuthFetch()
+
 
     async function GetAllTransactions() {
         try {
-            const resultado = await fetch(
+            const resultado = await Authfecth(
                 "http://localhost:3000/transactions"
             );
 

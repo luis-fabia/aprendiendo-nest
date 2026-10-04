@@ -92,9 +92,7 @@
 }
 
 
-/* =========================================
-   MENSAJE DE ERROR
-   ========================================= */
+/* MENSAJE DE ERROR */
 
 .mensaje-error {
     margin-top: 15px;
@@ -105,9 +103,7 @@
 }
 
 
-/* =========================================
-   MODAL
-   ========================================= */
+/* MODAL */
 
 .modal-overlay {
     position: fixed;
@@ -124,9 +120,7 @@
 }
 
 
-/* =========================================
-   TICKET
-   ========================================= */
+/* TICKET */
 
 .ticket {
     width: 90%;
@@ -155,9 +149,7 @@
 }
 
 
-/* =========================================
-   DATOS DEL TICKET
-   ========================================= */
+/* DATOS DEL TICKET  */
 
 .ticket-dato {
     display: flex;
@@ -182,9 +174,7 @@
 }
 
 
-/* =========================================
-   BOTON CONTINUAR
-   ========================================= */
+/* BOTON CONTINUAR */
 
 .btn-continuar {
     width: 100%;
@@ -210,9 +200,7 @@
 }
 
 
-/* =========================================
-   TRANSACCIONES
-   ========================================= */
+/*  TRANSACCIONES */
 
 .seccion-transacciones {
     width: 100%;
@@ -227,9 +215,7 @@
 /* ----------------------------------------------------- */
 
 
-/* =========================================
-   HISTORIAL DE TRANSACCIONES
-   ========================================= */
+/*  HISTORIAL DE TRANSACCIONES */
 
 .historial {
     width: 100%;
@@ -260,9 +246,7 @@
 }
 
 
-/* =========================================
-   CONTENEDOR DEL HISTORIAL
-   ========================================= */
+/*  CONTENEDOR DEL HISTORIAL */
 
 .transacciones-contenedor {
     width: 100%;
@@ -285,9 +269,7 @@
 }
 
 
-/* =========================================
-   TABLA
-   ========================================= */
+/*  TABLA   */
 
 .tabla-wrapper {
     width: 100%;
@@ -324,9 +306,7 @@
 }
 
 
-/* =========================================
-   SIN TRANSACCIONES
-   ========================================= */
+/* SIN TRANSACCIONES */
 
 .sin-transacciones {
     padding: 20px;
@@ -334,4 +314,25 @@
     text-align: center;
 
     color: #6b7280;
+}
+
+.recargas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.btn-logout {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #c46060;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-logout:hover {
+    background: #dc2626;
 }

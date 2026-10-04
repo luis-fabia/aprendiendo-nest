@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { RegistroTransacciones } from './RegistroTransacciones'
+import { useCompraTX } from "../hooks/useCompraTX.js";
+import { useSuppliers } from "../hooks/useSuppliers.js";
+import { Ticket } from './Ticket.js'
+import { AuthContext } from "../context/AuthContext.js";
+
 
 export default function ModuloRecargas() {
 
+    const { setAccesToken } = useContext(AuthContext)
     const [seleccion, setSeleccion] = useState(false);
-
-    const [suppliers, setSuppliers] = useState([]);
-
     const [DatosCompra, setDatosCompra] = useState({
         supplierId: "",
         cellPhone: "",
         value: 0
     });
 
+
+    const [cargando, setcargando] = useState(false)
+    const [error, setError] = useState("")
+    const { compra } = useCompraTX()
+    const [ticket, setTicket] = useState(false)
     const [transaccion, setTransaccion] = useState({
         cellPhone: "",
         message: "",
@@ -20,72 +28,28 @@ export default function ModuloRecargas() {
         value: 0
     })
 
-    const [ticket, setTicket] = useState(false)
-    const [error, setError] = useState("")
-    const [cargando, setcargando] = useState(false)
+    const { suppliers } = useSuppliers();
 
-    async function CompraTX(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-
-        try {
-            setcargando(true)
-            const request = await fetch("http://localhost:3000/buy", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(DatosCompra)
-            });
-
-            const datos = await request.json();
-            if (!request.ok) {
-                setError(datos.message || "No fue Posible realizar la Recarga")
-                return;
-            }
-
-
-            setTransaccion(datos)
-            setTicket(true)
-            setDatosCompra({
-                supplierId: "",
-                cellPhone: "",
-                value: 0
-            });
-            setcargando(false)
-            setError("")
-
-        }
-        catch (errro) {
-            setError("No fue posible comunicarse con el servidor")
-        }
-
-
-    }
-
-    useEffect(() => {
-
-        async function obtenerSuppliers() {
-
-            const response = await fetch(
-                "http://localhost:3000/getSuppliers"
-            );
-            const datos = await response.json();
-            setSuppliers(datos);
-        }
-
-        obtenerSuppliers();
-
-    }, []);
 
     return (
         <>
 
             <div className="contenedor__general">
                 <main className="modulo-recargas">
-                    <h1 className='Titulo'>Puntored</h1>
+
+                    <div className="recargas-header">
+                        <h1 className="Titulo">Puntored</h1>
+
+                        <button
+                            type="button"
+                            className="btn-logout"
+                            onClick={() => setAccesToken("")}
+                        >
+                            Cerrar sesión
+                        </button>
+                    </div>
 
                     <h2>Recargas</h2>
-
                     <select
                         className="select-operador"
                         value={DatosCompra.supplierId}
@@ -98,6 +62,7 @@ export default function ModuloRecargas() {
                             setSeleccion(true);
                         }}
                     >
+
                         <option value="">Seleccionar operador</option>
 
                         {suppliers.map((valor) => (
@@ -107,9 +72,29 @@ export default function ModuloRecargas() {
                         ))}
                     </select>
 
-                    {seleccion && (
-                        <form className="form-recarga" onSubmit={CompraTX}>
 
+                    {seleccion && (
+                        <form
+                            className="form-recarga"
+                            onSubmit={async (e) => {
+                                e.preventDefault();
+                                setcargando(true)
+                                setError("")
+                                const resultado = await compra(DatosCompra);
+
+                                if (!resultado.ok) {
+                                    setError(resultado.error)
+                                }
+                                else {
+                                    setTicket(true)
+                                    setTransaccion(resultado.data)
+
+                                }
+                                setcargando(false)
+                                setSeleccion(false)
+
+                            }}
+                        >
                             <input
                                 className="input-recarga"
                                 type="text"
@@ -144,50 +129,29 @@ export default function ModuloRecargas() {
                     )}
                 </main>
 
-                {error && (
-                    <p className="mensaje-error">{error}</p>
-                )}
-
-                {ticket && (
-                    <div className="modal-overlay">
-
-                        <div className="ticket">
-
-                            <h2>Recarga exitosa</h2>
+                {error &&
+                    <p>{error}</p>}
 
 
-                            <div className="ticket-dato">
-                                <span>Celular</span>
-                                <strong>{transaccion.cellPhone}</strong>
-                            </div>
+                {ticket && <Ticket
+                    transaccion={transaccion}
+                    onContinuar={() => {
+                        setTicket(false);
+                        setDatosCompra({
+                            supplierId: "",
+                            cellPhone: "",
+                            value: 0
+                        });
+                    }}
+                />}
 
-                            <div className="ticket-dato">
-                                <span>Valor</span>
-                                <strong>${transaccion.value}</strong>
-                            </div>
 
-                            <div className="ticket-dato">
-                                <span>Ticket</span>
-                                <strong>{transaccion.transactionalID}</strong>
-                            </div>
-
-                            <button
-                                className="btn-continuar"
-                                onClick={() => setTicket(false)}
-                            >
-                                Continuar
-                            </button>
-
-                        </div>
-
-                    </div>
-                )}
 
                 <section className="seccion-transacciones">
                     <RegistroTransacciones />
                 </section>
 
-            </div>
+            </div >
         </>
     );
 }
