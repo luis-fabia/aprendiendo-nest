@@ -75,10 +75,7 @@ json
 
 Los registros se envían a **Elasticsearch** y pueden ser visualizados mediante **Kibana**.
 
-
-
-# Estructura del proyecto
-
+Estructura del proyecto
 Prueba-Tecnica/
 │
 ├── backend/
