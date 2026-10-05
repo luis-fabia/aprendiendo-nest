@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ElasticprubeaController } from './elasticprubea.controller';
+import { ElasticprubeaController } from './elasticprubea.controller.js';
 
 describe('ElasticprubeaController', () => {
   let controller: ElasticprubeaController;
