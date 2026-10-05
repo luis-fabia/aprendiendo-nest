@@ -12,6 +12,9 @@ import { TransactionsController } from './Puntored/controller/transactions.contr
 import { TransactionsService } from './Puntored/service/transactions.service.js'
 import { UsersModule } from './users/users/users.module.js';
 import { AuthLoginModule } from './auth-login/auth-login.module.js';
+import {AppLogger} from './logger/app.logger.js'
+import {ElasticService} from './logger/elastic.service.js'
+import {ElastiController} from './logger/elasticprubea.controller.js'
 
 @Module({
   imports: [
@@ -20,7 +23,10 @@ import { AuthLoginModule } from './auth-login/auth-login.module.js';
     UsersModule,
     AuthLoginModule
   ],
-  controllers: [AuthController, GetSuppliersController, BuyController, TransactionsController ], 
-  providers: [AuthService, GetSupplierService, BuyService, TransactionsService],
+  controllers: [AuthController, GetSuppliersController, BuyController, TransactionsController,
+    ElastiController
+   ], 
+  providers: [AuthService, GetSupplierService, BuyService, TransactionsService, AppLogger, ElasticService],
+  exports: [ElasticService]
 })
 export class AppModule {}
