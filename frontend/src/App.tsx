@@ -1,12 +1,12 @@
 import './App.css'
 import  ModuloRecargas  from './componentes/Recargas'
 import {LoginUser} from './componentes/Login'
-import { useContext } from 'react'
-import { AuthContext } from './context/AuthContext'
+import { useAuth } from "./context/AuthContext";
+
 
 function App() {
 
-  const {accesToken} = useContext(AuthContext)
+  const { accesToken } = useAuth();
 
   return (
     <>

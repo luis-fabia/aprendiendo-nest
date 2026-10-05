@@ -1,20 +1,27 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
-import {useAuthFetch} from '../hooks/useAuthFetch.ts'
+import { useEffect, useState } from "react";
+import { useAuthFetch } from '../hooks/useAuthFetch.ts'
+import { useAuth } from "../context/AuthContext";
 
-export function useSuppliers() {  
-    
-    const [suppliers, setSuppliers] = useState([]);
-    const {accesToken} = useContext(AuthContext)
-    const {Authfecth} = useAuthFetch()
+type Supplier = {
+    id: string;
+    name: string;
+};
+
+export function useSuppliers() {
+
+    const [suppliers, setSuppliers] = useState<Supplier[]>([]); 
+    const { accesToken } = useAuth();
+    const { Authfecth } = useAuthFetch()
 
     useEffect(() => {
 
+
+        const API_URL = import.meta.env.VITE_API_URL;
         async function obtenerSuppliers() {
             const response = await Authfecth(
-                "http://localhost:3000/getSuppliers"
-            )   ;
-            
+                `${API_URL}/getSuppliers`
+            );
+
             if (!response) {
                 return;
             }
@@ -24,7 +31,7 @@ export function useSuppliers() {
         }
 
         obtenerSuppliers()
-        
+
 
     }, [accesToken]);
 

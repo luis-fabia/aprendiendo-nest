@@ -1,14 +1,19 @@
-import { useContext } from "react";
-import { AuthContext } from '../context/AuthContext'
-import {useAuthFetch} from '../hooks/useAuthFetch.ts'
+import { useAuth } from "../context/AuthContext";
 
+
+type LoginData = {
+    username: string;
+    password: string;
+};
 
 export function useLogin() {
+    const { setAccesToken } = useAuth();
 
-    const { setAccesToken } = useContext(AuthContext)
+                const API_URL = import.meta.env.VITE_API_URL;
 
-    async function login(loginDate) {
-        const request = await fetch("http://localhost:3000/auth/login", {
+
+    async function login(loginDate: LoginData) {
+        const request = await fetch(`${API_URL}/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

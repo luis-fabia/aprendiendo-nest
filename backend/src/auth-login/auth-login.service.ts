@@ -34,10 +34,9 @@ export class AuthLoginService {
 
         return { 
             accesToken: this.jwtService.sign(payload, {
-            expiresIn: '3m'
+            expiresIn: '10m'
             }) 
             
-    
         }
 
     }

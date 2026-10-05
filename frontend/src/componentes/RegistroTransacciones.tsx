@@ -1,27 +1,36 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useAuthFetch } from '../hooks/useAuthFetch.ts'
 
 
+type Transaction = {
+    id: string;
+    transactionalID: string;
+    cellPhone: string;
+    value: number;
+    createdAt: string;
+};
+
 export function RegistroTransacciones() {
 
-    const [allTransaccion, setAllTransaccion] = useState([]);
+    const [allTransaccion, setAllTransaccion] = useState<Transaction[]>([]);
     const [mostrar, setMostrar] = useState(false);
-    const {Authfecth} = useAuthFetch()
+    const { Authfecth } = useAuthFetch()
 
+    const API_URL = import.meta.env.VITE_API_URL;
 
     async function GetAllTransactions() {
         try {
             const resultado = await Authfecth(
-                "http://localhost:3000/transactions"
+                `${API_URL}/transactions`
             );
 
+             if (!resultado) {
+                return
+            }
+            
             const datos = await resultado.json();
 
-            if (!resultado.ok) {
-                throw new Error(
-                    datos.message || "No fue posible obtener las transacciones"
-                );
-            }
+           
 
             setAllTransaccion(datos);
 
@@ -44,7 +53,7 @@ export function RegistroTransacciones() {
     return (
         <div className="historial">
 
-            <button className="btn-transacciones"onClick={manejarTransacciones}>
+            <button className="btn-transacciones" onClick={manejarTransacciones}>
                 {mostrar
                     ? "Ocultar transacciones"
                     : "Ver transacciones"

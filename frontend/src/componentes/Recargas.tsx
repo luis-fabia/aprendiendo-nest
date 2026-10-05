@@ -1,14 +1,15 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { RegistroTransacciones } from './RegistroTransacciones'
 import { useCompraTX } from "../hooks/useCompraTX.js";
 import { useSuppliers } from "../hooks/useSuppliers.js";
 import { Ticket } from './Ticket.js'
-import { AuthContext } from "../context/AuthContext.js";
+import { useAuth } from "../context/AuthContext";
 
 
 export default function ModuloRecargas() {
 
-    const { setAccesToken } = useContext(AuthContext)
+
+    const { setAccesToken } = useAuth();
     const [seleccion, setSeleccion] = useState(false);
     const [DatosCompra, setDatosCompra] = useState({
         supplierId: "",

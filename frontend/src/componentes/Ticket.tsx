@@ -1,4 +1,16 @@
-export function Ticket({ transaccion, onContinuar }) {
+type Transaccion = {
+    cellPhone: string;
+    message: string;
+    transactionalID: string;
+    value: number;
+};
+
+type TicketProps = {
+    transaccion: Transaccion;
+    onContinuar: () => void;
+};
+
+export function Ticket({transaccion,onContinuar}: TicketProps) {
 
     return (
 

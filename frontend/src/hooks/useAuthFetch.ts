@@ -1,11 +1,15 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
+
+type AuthFetchOptions = RequestInit;
 
 export function useAuthFetch() {
 
-    const { accesToken, setAccesToken } = useContext(AuthContext)
+    const { accesToken, setAccesToken } = useAuth();
 
-    async function Authfecth(url, opciones = {}) {
+    async function Authfecth(
+        url: string,
+        opciones: AuthFetchOptions = {}
+    ) {
 
         const response = await fetch(url, {
             ...opciones,
@@ -16,16 +20,14 @@ export function useAuthFetch() {
         });
 
         if (response.status === 401) {
-            setAccesToken("")
+            setAccesToken("");
             return;
         }
 
-        return response
+        return response;
     }
 
     return {
         Authfecth
-    }
-
-
+    };
 }

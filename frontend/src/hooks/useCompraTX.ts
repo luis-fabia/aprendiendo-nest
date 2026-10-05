@@ -1,18 +1,23 @@
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 import { useAuthFetch } from '../hooks/useAuthFetch.ts'
 
 
+type DatosCompra = {
+    supplierId: string;
+    cellPhone: string;
+    value: number;
+};
+
 export function useCompraTX() {
 
-    const { accesToken } = useContext(AuthContext);
     const { Authfecth } = useAuthFetch()
 
-    async function compra(datosCompra) {
+    async function compra(datosCompra: DatosCompra) {
 
         try {
+            
+            const API_URL = import.meta.env.VITE_API_URL;
 
-            const request = await Authfecth("http://localhost:3000/buy", {
+            const request = await Authfecth(`${API_URL}/buy`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
