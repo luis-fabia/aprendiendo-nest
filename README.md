@@ -75,39 +75,39 @@ json
 
 Los registros se envían a **Elasticsearch** y pueden ser visualizados mediante **Kibana**.
 
-Estructura del proyecto
+## Estructura del proyecto
 Prueba-Tecnica/
-│
-├── backend/
-│   ├── src/
-│   │   ├── auth-login/
-│   │   ├── buy/
-│   │   ├── suppliers/
-│   │   ├── transaction/
-│   │   ├── elastic/
-│   │   ├── prisma/
-│   │   ├── app.module.ts
-│   │   └── main.ts
-│   │
-│   ├── prisma/
-│   │   └── schema.prisma
-│   │
-│   ├── package.json
-│   └── .env
-│
-├── frontend/
-│   ├── src/
-│   │   ├── componentes/
-│   │   ├── context/
-│   │   ├── hooks/
-│   │   ├── styles/
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   │
-│   ├── package.json
-│   └── .env
-│
-└── README.md
+- │
+- ├── backend/
+- │   ├── src/
+- │   │   ├── auth-login/
+- │   │   ├── buy/
+- │   │   ├── suppliers/
+- │   │   ├── transaction/
+- │   │   ├── elastic/
+- │    │   ├── prisma/
+- │   │   ├── app.module.ts
+- │   │   └── main.ts
+- │   │
+- │   ├── prisma/
+- │   │   └── schema.prisma
+- │   │
+- │    ├── package.json
+- │   └── .env
+- │
+- ├── frontend/
+- │   ├── src/
+- │   │   ├── componentes/
+- │   │   ├── context/
+- │   │   ├── hooks/
+- │   │   ├── styles/
+- │   │   ├── App.tsx
+- │   │   └── main.tsx
+- │   │
+- │   ├── package.json
+- │   └── .env
+- │
+- └── README.md
 
 # Requisitos
 
